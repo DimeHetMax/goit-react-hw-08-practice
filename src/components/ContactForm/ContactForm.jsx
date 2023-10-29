@@ -1,26 +1,28 @@
 import { useDispatch, useSelector} from "react-redux";
 import { getContacts } from "redux/selectors";
-import { addContacts } from "redux/contactsSlice";
+// import { addContacts } from "redux/contactsSlice";
+import { addContact} from "redux/Contacts/operations";
 import css from "./ContactForm.module.css"
-
+console.log(addContact)
 export const ContactForm = ()=>{
   const contacts = useSelector(getContacts)
+  console.log(contacts)
   const dispatch = useDispatch();
 
-  const addContact = (event) => {
+  const handleForm = (event) => {
     event.preventDefault()
     const name = event.target.elements.name.value;
-    const phone = event.target.elements.number.value;
-    const existingContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
-    if (existingContact) {
-      alert('This name already exists in the phonebook!');
-      return;
-    }
-    dispatch(addContacts(name, phone))
+    const number = event.target.elements.number.value;
+    // const existingContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+    // if (existingContact) {
+    //   alert('This name already exists in the phonebook!');
+    //   return;
+    // }
+    dispatch(addContact({name, number}))
     event.target.reset();
   }
   return (
-    <form onSubmit={addContact}>
+    <form onSubmit={handleForm}>
       <label>
         Name
         <input

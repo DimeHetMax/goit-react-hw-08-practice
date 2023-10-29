@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/Contacts/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 import css from "./ContactList.module.css"
 
  export const ContactList = () => {
-  const contacts = useSelector(getContacts)
+  const {items} = useSelector(getContacts)
   const filter = useSelector(getFilter)
   const dispatch = useDispatch()
 
@@ -14,12 +14,12 @@ import css from "./ContactList.module.css"
   return (
     <ul className={css.list}>
       {filter === '' ? (
-        contacts.map(({ name, phone, id }) => 
-            {return <li className ={css.phoneItem} key={id}><p>{name}: {phone}</p><button type='button' className={css.button} onClick={() => dispatch(deleteContact(id))}>Delete</button></li>;}
+        items.map(({ name, number, id }) => 
+            {return <li className ={css.phoneItem} key={id}><p>{name}: {number}</p><button type='button' className={css.button} onClick={() => dispatch(deleteContact(id))}>Delete</button></li>;}
           )
         ) : (
-          handleFilteredContacts(contacts).map(({ id, name, phone }) =>   
-          {return <li className ={css.phoneItem} key={id}><p>{name}: {phone}</p><button type='button' className={css.button} onClick={() => dispatch(deleteContact(id))}>Delete</button></li>;}
+          handleFilteredContacts(items).map(({ id, name, number }) =>   
+          {return <li className ={css.phoneItem} key={id}><p>{name}: {number}</p><button type='button' className={css.button} onClick={() => dispatch(deleteContact(id))}>Delete</button></li>;}
           )
       )}
     </ul>
