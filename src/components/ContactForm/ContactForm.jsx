@@ -3,21 +3,20 @@ import { getContacts } from "redux/selectors";
 // import { addContacts } from "redux/contactsSlice";
 import { addContact} from "redux/Contacts/operations";
 import css from "./ContactForm.module.css"
-console.log(addContact)
+
 export const ContactForm = ()=>{
-  const contacts = useSelector(getContacts)
-  console.log(contacts)
+  const {items} = useSelector(getContacts)
   const dispatch = useDispatch();
 
   const handleForm = (event) => {
     event.preventDefault()
     const name = event.target.elements.name.value;
     const number = event.target.elements.number.value;
-    // const existingContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
-    // if (existingContact) {
-    //   alert('This name already exists in the phonebook!');
-    //   return;
-    // }
+    const existingContact = items.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+    if (existingContact) {
+      alert('This name already exists in the phonebook!');
+      return;
+    }
     dispatch(addContact({name, number}))
     event.target.reset();
   }
