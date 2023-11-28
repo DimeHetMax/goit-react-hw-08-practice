@@ -12,3 +12,16 @@
     display: block;
     padding: 0px 10px;
 }
+.textContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.icon:hover, 
+.icon:focus{
+    color: rgb(239, 175, 0);
+}
